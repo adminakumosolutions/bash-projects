@@ -1,0 +1,13 @@
+
+
+Step 1: 
+    Check if web-server is installed 
+    use apache status as a condition to check if it exists & active
+
+Step 2: 
+    Based on [Step 1] condition install apache OR check if /var/www/html/ dir is empty 
+
+Step 3: 
+    Based on [Step 2] clean /var/www/html or and download website
+
+Step 4: Move the website files && restart apache
