@@ -1,13 +1,6 @@
 #!/bin/bash 
 
-which git 2> /dev/null && clear
-if [ $? != 0 ]; then
-    echo "Installing git...."
-    yum install git -y 1> /dev/null
-fi 
-
-git status 2> /dev/null && clear
-if [ $? = 0 ]; then
+function _gitPush {
     if [ $# = 0 ]; then 
         read -p "provide path to commit: " path
         read -p "provide commit message: " message
@@ -26,10 +19,25 @@ if [ $? = 0 ]; then
         git push
     
     fi
+}
+
+which git 2> /dev/null && clear
+if [ $? != 0 ]; then
+    echo "Installing git...."
+    yum install git -y 1> /dev/null
 fi 
-# else
-#     echo "repository not detected"
-#     read -p "enter repo name: " repo
+
+git status 2> /dev/null && clear
+if [ $? = 0 ]; then
+    _gitPush
+else
+    echo "repository not detected"
+    read -p "enter repo name: " repo
+    repo_path=$(find / -name $repo)
+    cd $repo_path
+    _gitPush
+fi
+
 
 
 
