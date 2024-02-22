@@ -33,9 +33,23 @@ if [ $? = 0 ]; then
 else
     echo "repository not detected"
     read -p "enter repo name: " repo
-    repo_path=$(find / -name $repo)
-    cd $repo_path
-    _gitPush
+    resultCount=$(find / -name $repo | wc -l)
+    if [ $resultCount -gt 1 ]; then
+        echo "found more then 1 repo with name: $repo:"
+        for result in $(find / -name $repo 2> /dev/null); do 
+            read -p "Is this your repo? -> $result <- [y/n]" x
+            if [ $x != 'y' ]; then
+                echo "skipping..."
+            else
+                cd $result
+                _gitPush
+                break
+            fi
+        done
+    else
+        cd $repo_path
+        _gitPush
+    fi
 fi
 
 
