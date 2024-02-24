@@ -1,0 +1,20 @@
+## Creating a backup process to take backups of webserver contents. 
+
+web-server contents: /var/www/html/
+backups: /var/backups/spering-SatFeb2416:51:38.tar.gz
+schedule: daily backups at 1 AM
+delete old backups: delete backups older than 1 week
+
+
+Step 1:
+    Check if var/www/html exists AND its not empty:
+        If empty: notify & exit
+    continue: 
+        take compressed verion of the html folder with tar:
+            with a unique name following this format: webName-TimeStamp.tar.gz
+            mkdir /var/backups 2> /dev/null
+            save the result to "/var/backups/"
+
+Step 2: 
+    use find to look for tar.gz files in /var/backups/ for anything older than 1 week
+    use the results of the find command to remove old backups
