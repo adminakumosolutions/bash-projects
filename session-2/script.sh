@@ -16,3 +16,5 @@ systemctl enable httpd
 
 ## write htmls
 echo "This is an automated apache server" > /var/www/html/index.html
+
+## test
