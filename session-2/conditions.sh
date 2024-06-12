@@ -1,18 +1,11 @@
 #!/bin/bash
 
-# CONDITION SYNTAX
-# if [condition]; then 
-#     commands
-# fi 
+read -p "What is your name?: " name
 
-file=$1
+if [ $name == "Abdul" ]; then
+	echo "hello there $name"
+else
+	echo "You don't belong here"
+fi 
 
-if [ $# -ge 1 ]; then
-    echo "#!/bin/bash" > $file
-    chmod +x $file
-    exit
-fi
 
-read -p "Enter a file name: " file
-echo "#!/bin/bash" > $file.sh
-chmod +x $file.sh 
