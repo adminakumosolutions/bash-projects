@@ -1,5 +1,21 @@
 #!/bin/bash
 
+path="$1"
+message="$2"
+
+function _gitPush {
+	git add $path
+        git commit -m "$message"
+        git push
+}
+
+function _gitConfig {
+	read -p "Enter your github username: " git_username
+        read -p "Enter your github email: " git_email
+        git config --global user.name $git_username
+        git config --global user.email $git_email
+}
+
 if [ $# -lt 2 ]; then
 	echo "2 arguments required [file] - [commit message]"
 	exit 1
@@ -14,18 +30,11 @@ if [ -d ".git" ]; then
 	if [ $? = 0 ]; then
 
 		if [ -f /root/.gitconfig ]; then
-			git add $1
-			git commit -m "$2"
-			git push
+			_gitPush
 		else
-			read -p "Enter your github username: " git_username
-			read -p "Enter your github email: " git_email
-			git config --global user.name $git_username
-			git config --global user.email $git_email
+			_gitConfig
 			## commit & push
-                        git add $1
-                        git commit -m "$2"
-                        git push
+			_gitPush
 		fi
 
 	else
@@ -41,18 +50,12 @@ else
         if [ $? = 0 ]; then
 
                 if [ -e "/root/.gitconfig" ]; then
-                        git add $1
-                        git commit -m "$2"
-                        git push
+			echo "Test"
+			_gitPush
                 else
-                        read -p "Enter your github username: " git_username
-                        read -p "Enter your github email: " git_email
-                        git config --global user.name $git_username
-                        git config --global user.email $git_email
+			_gitConfig
                         ## commit & push
-                        git add $1
-                        git commit -m "$2"
-                        git push
+			_gitPush
                 fi
 
         else
