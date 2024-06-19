@@ -7,3 +7,5 @@ var4='Today is: $(date)'
 
 
 
+
+echo $1

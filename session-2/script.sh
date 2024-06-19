@@ -18,3 +18,4 @@ systemctl enable httpd
 echo "This is an automated apache server" > /var/www/html/index.html
 
 ## test
+test 2
